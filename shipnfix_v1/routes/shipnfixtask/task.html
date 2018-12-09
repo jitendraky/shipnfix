@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+        #myTable th, #myTable td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        #myTable tr.header, #myTable tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+
+    <style>
+        body {margin: 0;}
+
+        ul.sidenav {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 15%;
+            background-color: #f1f1f1;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        ul.sidenav li a {
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+
+        ul.sidenav li a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        ul.sidenav li a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+
+        div.content {
+            margin-left: 25%;
+            padding: 1px 16px;
+            height: 1000px;
+        }
+
+        @media screen and (max-width: 900px) {
+            ul.sidenav {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            ul.sidenav li a {
+                float: left;
+                padding: 15px;
+            }
+
+            div.content {margin-left: 0;}
+        }
+
+        @media screen and (max-width: 400px) {
+            ul.sidenav li a {
+                text-align: center;
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<ul class="sidenav">
+    <li><a class="active" href="/">ShipNFix</a></li>
+    <li><a href="/task">New Task</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a id="qsLogoutBtn" href="/logout">Logout</a></li>
+</ul>
+
+<div class="content">
+    <h3>Welcome {{.nickname}}  <br><br><br>Add New Task</h3>
+
+
+    <div class="container">
+        <form action="/action_page.php">
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">First Name</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="lname">Last Name</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="country">Country</label>
+                </div>
+                <div class="col-75">
+                    <select id="country" name="country">
+                        <option value="australia">Australia</option>
+                        <option value="canada">Canada</option>
+                        <option value="usa">USA</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="subject">Subject</label>
+                </div>
+                <div class="col-75">
+                    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div></div>
+
+</body>
+</html>
