@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 98%;
+            font-size: 14px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-left: 12px;
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+        #myTable th, #myTable td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        #myTable tr.header, #myTable tr:hover {
+            background-color: #f3f2f2!important;
+        }
+    </style>
+
+    <style>
+        body {margin: 0;}
+
+        ul.sidenav {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 15%;
+            background-color: white;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        ul.sidenav li a {
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-bottom: 1px solid;
+        }
+
+        ul.sidenav li a.active {
+            background-color: deepskyblue;
+            color: white;
+            border-bottom: 1px solid;
+        }
+
+        ul.sidenav li a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+
+        div.content {
+            margin-left: 15%;
+            padding: 1px 16px;
+            height: 1000px;
+            background-color: #f5f5f570;
+        }
+
+        @media screen and (max-width: 900px) {
+            ul.sidenav {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            ul.sidenav li a {
+                float: left;
+                padding: 15px;
+            }
+
+            div.content {margin-left: 0;}
+        }
+
+        @media screen and (max-width: 400px) {
+            ul.sidenav li a {
+                text-align: center;
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<ul class="sidenav">
+    <li><a class="active" href="/">ShipNFix</a></li>
+
+    <li></li>
+    <li></li>
+    <li>
+
+    </li>
+    <br>
+    <li><a id="qsLogoutBtn" href="/logout">Logout</a></li>
+</ul>
+
+<div class="content" >
+     <div class="w3-container">
+         <h8>welcome:  {{.nickname}} | </h8><button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-whitesmoke">  <h style="
+    color: #01bfff;
+">+ New task</h></button>
+
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content">
+                <header class="w3-container w3-white">
+        <span onclick="document.getElementById('id01').style.display='none'"
+              class="w3-button w3-display-topright">&times;</span>
+                    <h9>NEW TASK  (Hello {{.nickname}} , you can publish a new task here)</h9>
+                </header>
+                <div class="w3-container">
+
+                        <form action="/task" method="post">
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="fname">TASK NAME</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text"  name="task" placeholder="task name..">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="lname">TYPE</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" name="type" placeholder="type of task ship/fix">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="subject">Details</label>
+                                </div>
+                                <div class="col-75">
+                                    <textarea  name="details" placeholder="details.." style="height:200px"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <input type="submit" value="Submit">
+                            </div>
+                        </form>
+                {{range $index, $element := .Pages}}
+                    <form action="/detailNews" id="readMore{{$index}}" method="post" name="readMore{{$index}}">
+                        //displaying elements from each page
+
+                        <div id="more">
+                            <input name="query" type="hidden" value="{{printf "%s" .Title}}">
+                            <a href="#" onclick="document.readMore{{$index}}.submit()">Read More</a>
+                        </div>
+
+                    </form>
+                {{end}}
+                </div>
+                <footer class="w3-container w3-white">
+                    <p></p>
+                </footer>
+
+
+            </div>
+
+
+
+        </div>
+
+    <h5>My Tasks</h5>
+
+    <table class="w3-table w3-bordered w3-striped w3-border">
+        <thead>
+        <tr class="w3-white">
+            <th>TASK</th>
+            <th>STATUS</th>
+            <th>ACTION</th>
+        </tr>
+        </thead>
+        <tr>
+            <td>SHIP task1</td>
+            <td>Running<span class="w3-badge">1</span></td>
+            <td>Complete</td>
+        </tr>
+        <tr>
+
+    </table>
+
+    </div>
+
+    <br><h4>&nbsp;&nbsp;&nbsp;ShipNFix listing</h4>
+
+    <input class="w3-input w3-border w3-padding" type="text" placeholder="Search for task.." id="myInput" onkeyup="myFunction()">
+    <ul class="w3-ul w3-margin-top" id="myUL">
+        <li></li>
+
+</div>
+
+<script>
+    function myFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+
+
+</div>
+
+</body>
+</html>
